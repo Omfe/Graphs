@@ -10,8 +10,9 @@
 
 @interface GAEdge : UIView
 
+@property (assign, nonatomic) BOOL selected;
 @property (assign, nonatomic, readonly) CGFloat distanceValue;
-@property (assign, nonatomic)  NSInteger EdgeID;
+@property (assign, nonatomic)  NSInteger edgeID;
 
 
 

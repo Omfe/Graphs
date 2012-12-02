@@ -10,9 +10,7 @@
 
 @interface GAVertex : UIView
 
-@property (assign, nonatomic) bool selected;
-@property (assign, nonatomic) NSInteger IDVertex;
-
-
+@property (assign, nonatomic) BOOL selected;
+@property (assign, nonatomic) NSInteger vertexID;
 
 @end
