@@ -7,11 +7,15 @@
 //
 
 #import "GAViewController.h"
+#import "GAVertex.h"
+#import "GAEdge.h"
 
 @interface GAViewController ()
 
 @property (weak, nonatomic) IBOutlet UIImageView *mapView;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *modeSegmentedControl;
+
+@property (strong, nonatomic) id objectHolder;
 
 @end
 
@@ -31,7 +35,7 @@
 #pragma mark - Action Methods
 - (IBAction)modeValueChanged:(UISegmentedControl *)sender
 {
-    //Clear current state
+    self.objectHolder = nil;
 }
 
 - (void)mapWasTapped:(UITapGestureRecognizer *)tapGestureRecognizer
@@ -58,7 +62,40 @@
 #pragma mark - Private Methods
 - (void)addVertexWasTapped:(UITapGestureRecognizer *)tapGestureRecognizer
 {
-    NSLog(@"VERTEX");
+    GAVertex *vertex;
+    NSArray *mapSubviews;
+    CGPoint tapLocation;
+    CGRect frame;
+    CGRect intersectionFrame;
+    
+    tapLocation = [tapGestureRecognizer locationInView:self.mapView];
+    frame = CGRectMake(tapLocation.x - 20, tapLocation.y - 20, 40, 40);
+    
+    mapSubviews = self.mapView.subviews;
+    for (UIView *view in mapSubviews) {
+        if (CGRectContainsPoint(view.frame, tapLocation)) {
+            if ([view isKindOfClass:[GAVertex class]]) {
+                [[[UIAlertView alloc] initWithTitle:@"Overlapping!" message:@"There's a Vertex there already!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil] show];
+                return;
+            } else if ([view isKindOfClass:[GAEdge class]]) {
+                [[[UIAlertView alloc] initWithTitle:@"Overlapping!" message:@"There's an Edge in the way!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil] show];
+                return;
+            } else {
+                // Something unknown :S
+            }
+        }
+        
+        intersectionFrame = CGRectIntersection(view.frame, frame);
+        if (!CGRectIsEmpty(intersectionFrame)) {
+            [[[UIAlertView alloc] initWithTitle:@"Too close!" message:@"The Vertex is too close to another object!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil] show];
+            return;
+        }
+    }
+
+    vertex = [[GAVertex alloc] initWithFrame:frame];
+    vertex.backgroundColor = [UIColor redColor];
+    
+    [self.mapView addSubview:vertex];
 }
 
 - (void)addEdgeWasTapped:(UITapGestureRecognizer *)tapGestureRecongnizer
