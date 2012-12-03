@@ -8,6 +8,13 @@
 
 #import "GAAlgorithm.h"
 
+@interface GAAlgorithm()
+
+@property (assign, nonatomic) NSMutableArray *graphContentsArray;
+
+@end
+
 @implementation GAAlgorithm
+
 
 @end

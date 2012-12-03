@@ -7,7 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "GAVertex.h"
 
 @interface GAAlgorithm : NSObject
+
+@property(assign, nonatomic) GAVertex *initialVertex;
 
 @end
