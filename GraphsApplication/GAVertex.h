@@ -11,6 +11,7 @@
 @interface GAVertex : UIView
 
 @property (assign, nonatomic) BOOL selected;
+@property (assign, nonatomic) NSMutableArray *neighborsArray;
 @property (assign, nonatomic) NSInteger vertexID;
 
 @end
