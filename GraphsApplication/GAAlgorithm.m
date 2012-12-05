@@ -17,4 +17,21 @@
 @implementation GAAlgorithm
 
 
+#pragma mark - public methods
+
+- (void)addVertex:(GAVertex *)vertex
+{
+    
+}
+
+- (void)deleteVertex:(GAVertex *)vertex
+{
+    
+}
+
+- (void)connectOriginVertex:(GAVertex *)originVertex withDestinationVertex:(GAVertex *)destinationVertex
+{
+    
+}
+
 @end
