@@ -13,8 +13,8 @@
 
 @property(assign, nonatomic) GAVertex *initialVertex;
 
--(void) addVertex:(GAVertex *)vertex;
--(void) deleteVertex:(GAVertex *)vertex;
--(void) connectOriginVertex:(GAVertex *)originVertex withDestinationVertex:(GAVertex *)destinationVertex;
+- (void)addVertex:(GAVertex *)vertex;
+- (void)deleteVertex:(GAVertex *)vertex;
+- (void)connectOriginVertex:(GAVertex *)originVertex withDestinationVertex:(GAVertex *)destinationVertex;
 
 @end
