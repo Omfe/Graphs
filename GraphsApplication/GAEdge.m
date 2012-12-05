@@ -14,9 +14,22 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        // Initialization code
+        //
     }
     return self;
+}
+
+- (void)setSelected:(BOOL)selected
+{
+    if (_selected != selected) {
+        _selected = selected;
+        
+        if (_selected) {
+            self.backgroundColor = [UIColor redColor];
+        } else {
+            self.backgroundColor = [UIColor whiteColor];
+        }
+    }
 }
 
 @end
