@@ -20,21 +20,27 @@
 
 - (void)routeShortestPathFromOriginVertex:(GAVertex *)originVertex toDestinationVertex:(GAVertex *)destinationVertex
 {
-    BOOL finishedRouting;
     GAVertex *currentVertex;
     GAVertex *nearestVertex;
+    GAVertex *vertexToGo;
     CGFloat distance;
     
+    
     distance = 0;
-    finishedRouting = NO;
     originVertex.permanentWeight = 0;
     currentVertex = originVertex;
     
-    while (!finishedRouting) {
+    while (currentVertex) {
         for (GAVertex *neightborVertex in currentVertex.neighborsArray) {
+            if (neightborVertex.locked) {
+                continue;
+            }
             neightborVertex.tempWeight = currentVertex.permanentWeight + distance;
         }
         for (GAVertex *neightborVertex in currentVertex.neighborsArray) {
+            if (neightborVertex.locked) {
+                continue;
+            }
             if (!nearestVertex) {
                 nearestVertex = neightborVertex;
             }
@@ -44,16 +50,26 @@
             nearestVertex.permanentWeight = nearestVertex.tempWeight;
             nearestVertex.locked = YES;
         }
+        currentVertex = nearestVertex;
         nearestVertex = nil;
+    }
+    
+    currentVertex = destinationVertex;
+    while (currentVertex) {
+        for (GAVertex *neightborVertex in currentVertex.neighborsArray) {
+            if (neightborVertex == originVertex) {
+                //Highlight Path to origin vertex
+                return;
+            }
+            if (currentVertex.permanentWeight - distance == neightborVertex.permanentWeight) {
+                vertexToGo = neightborVertex;
+            }
+        }
+        currentVertex = vertexToGo;
+        vertexToGo = nil;
+        //highligh path to current vertex
     }
 }
 
-//1. Poner permanentWieght 0 al vértice inicial.
-//2. Iterar al arreglo de vecinos.
-//   1. Por cada vecino: el peso temporal del vecino es la suma de la distancia más el peso permanente del vértice actual.
-//3. Iterar el arreglo de vecinos
-//   1. El más pequeño se le asigna permanentWeight y locked = YES.
-//   2. currentVertex = ese vecino.//
-//4. Hacer paso 2 y 3 otra vez hasta que todos estén locked (se acaba el while(!finishedRouting)).
 
 @end
