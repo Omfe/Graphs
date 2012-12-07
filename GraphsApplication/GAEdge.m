@@ -35,4 +35,29 @@
     return sqrt(dx*dx + dy*dy);
 }
 
+- (CGPoint)middlePoint
+{
+    CGFloat dx;
+    CGFloat dy;
+    CGFloat x;
+    CGFloat y;
+    
+    dx = (self.destinationVertex.center.x - self.originVertex.center.x) / 2;
+    dy = (self.destinationVertex.center.y - self.originVertex.center.y) / 2;
+    
+    if (self.originVertex.center.x < self.destinationVertex.center.x) {
+        x = self.originVertex.center.x + dx - 30;
+    } else {
+        x = self.destinationVertex.center.x + dx - 30;
+    }
+    
+    if (self.originVertex.center.y < self.destinationVertex.center.y) {
+        y = self.destinationVertex.center.y - dy;
+    } else {
+        y = self.originVertex.center.y + dy;
+    }
+    
+    return CGPointMake(x, y);
+}
+
 @end

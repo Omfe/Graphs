@@ -26,6 +26,8 @@
     CGContextRef context;
     CGPoint originPoint;
     CGPoint destinationPoint;
+    NSString *distanceValueString;
+    CGRect stringRect;
     
     [super drawRect:rect];
     
@@ -33,18 +35,22 @@
     
     [[UIImage imageNamed:@"Map.png"] drawInRect:rect];
     CGContextSetLineWidth(context, 2);
+    CGContextSetFillColorWithColor(context, [UIColor whiteColor].CGColor);
     
     for (GAEdge *edge in self.edgesArray) {
         originPoint = edge.originVertex.center;
         destinationPoint = edge.destinationVertex.center;
+        distanceValueString = [NSString stringWithFormat:@"%0.2f", edge.distanceValue];
         
         CGContextSetStrokeColorWithColor(context, edge.backgroundColor.CGColor);
         CGContextMoveToPoint(context, originPoint.x, originPoint.y);
         CGContextAddLineToPoint(context, destinationPoint.x, destinationPoint.y);
         
         CGContextStrokePath(context);
+        
+        stringRect = CGRectMake(edge.middlePoint.x, edge.middlePoint.y, 60, 60);
+        [distanceValueString drawInRect:stringRect withFont:[UIFont boldSystemFontOfSize:14] lineBreakMode:NSLineBreakByCharWrapping alignment:NSTextAlignmentCenter];
     }
 }
-
 
 @end
