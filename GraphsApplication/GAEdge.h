@@ -13,7 +13,7 @@
 @interface GAEdge : UIView
 
 @property (assign, nonatomic) BOOL selected;
-@property (assign, nonatomic) CGFloat distanceValue;
+@property (assign, nonatomic, readonly) CGFloat distanceValue;
 @property (strong, nonatomic) GAVertex *originVertex;
 @property (strong, nonatomic) GAVertex *destinationVertex;
 

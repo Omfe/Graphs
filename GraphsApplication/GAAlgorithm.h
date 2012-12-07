@@ -9,7 +9,18 @@
 #import <Foundation/Foundation.h>
 #import "GAVertex.h"
 
+@class GAAlgorithm;
+
+@protocol GAAlgorithmDelegate
+
+- (void)algorithm:(GAAlgorithm *)algorithm didPassThroughEdge:(GAEdge *)edge andFinished:(BOOL)finished;
+
+@end
+
+
 @interface GAAlgorithm : NSObject
+
+@property (assign, nonatomic) id<GAAlgorithmDelegate> delegate;
 
 - (void)routeShortestPathFromOriginVertex:(GAVertex *)originVertex toDestinationVertex:(GAVertex *)destinationVertex;
 

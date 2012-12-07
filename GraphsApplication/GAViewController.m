@@ -12,14 +12,14 @@
 #import "GAAlgorithm.h"
 #import "GAMapView.h"
 
-@interface GAViewController ()
+@interface GAViewController () <GAAlgorithmDelegate>
 
 @property (weak, nonatomic) IBOutlet GAMapView *mapView;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *modeSegmentedControl;
 
 @property (strong, nonatomic) GAAlgorithm *algorithm;
 @property (strong, nonatomic) NSMutableArray *vertexesArray;
-@property (strong, nonatomic) id objectHolder;
+@property (strong, nonatomic) GAVertex *vertexHolder;
 
 @end
 
@@ -33,17 +33,36 @@
     
     tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(mapWasTapped:)];
     [self.mapView addGestureRecognizer:tapGestureRecognizer];
+    
+    self.vertexesArray = [[NSMutableArray alloc] init];
+    self.algorithm = [[GAAlgorithm alloc] init];
+    self.algorithm.delegate = self;
+}
+
+
+#pragma mark - GAAlgorithmDelegate Methods
+- (void)algorithm:(GAAlgorithm *)algorithm didPassThroughEdge:(GAEdge *)edge andFinished:(BOOL)finished
+{
+    edge.selected = YES;
+    if (finished) {
+        [self.mapView setNeedsDisplay];
+    }
 }
 
 
 #pragma mark - Action Methods
 - (IBAction)modeValueChanged:(UISegmentedControl *)sender
 {
-    [self.mapView.subviews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        // Unselect everything
-    }];
+    for (GAVertex *vertex in self.vertexesArray) {
+        vertex.selected = NO;
+    }
     
-    self.objectHolder = nil;
+    for (GAEdge *edge in self.mapView.edgesArray) {
+        edge.selected = NO;
+    }
+    
+    self.vertexHolder = nil;
+    [self.mapView setNeedsDisplay];
 }
 
 - (void)mapWasTapped:(UITapGestureRecognizer *)tapGestureRecognizer
@@ -59,7 +78,10 @@
             [self dijkstraWasTapped:tapGestureRecognizer];
             break;
         case 3:
-            [self deleteWasTapped:tapGestureRecognizer];
+            [self deleteVertexWasTapped:tapGestureRecognizer];
+            break;
+        case 4:
+            [self deleteEdgeWasTapped:tapGestureRecognizer];
             break;
         default:
             break;
@@ -84,9 +106,6 @@
         if (CGRectContainsPoint(view.frame, tapLocation)) {
             if ([view isKindOfClass:[GAVertex class]]) {
                 [[[UIAlertView alloc] initWithTitle:@"Overlapping!" message:@"There's a Vertex there already!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil] show];
-                return;
-            } else if ([view isKindOfClass:[GAEdge class]]) {
-                [[[UIAlertView alloc] initWithTitle:@"Overlapping!" message:@"There's an Edge in the way!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil] show];
                 return;
             } else {
                 // Something unknown :S
@@ -116,11 +135,15 @@
     tapLocation = [tapGestureRecongnizer locationInView:self.mapView];
     vertex = [self vertexForPoint:tapLocation];
     
-    if (self.objectHolder) {
-        ((GAVertex *)self.objectHolder).selected = NO;
+    if (!vertex) {
+        return;
+    }
+    
+    if (self.vertexHolder) {
+        self.vertexHolder.selected = NO;
         
-        if (self.objectHolder == vertex) {
-            self.objectHolder = nil;
+        if (self.vertexHolder == vertex) {
+            self.vertexHolder = nil;
             return;
         }
         
@@ -128,29 +151,58 @@
         
         edge = [[GAEdge alloc] initWithFrame:CGRectZero];
         edge.backgroundColor = [UIColor greenColor];
-        edge.originVertex = ((GAVertex *)self.objectHolder);
+        edge.originVertex = self.vertexHolder;
         edge.destinationVertex = vertex;
         [self.mapView.edgesArray addObject:edge];
         [self.mapView setNeedsDisplay];
         
-        self.objectHolder = nil;
+        self.vertexHolder = nil;
         return;
     }
     
     vertex.selected = YES;
-    self.objectHolder = vertex;
+    self.vertexHolder = vertex;
 }
 
 - (void)dijkstraWasTapped:(UITapGestureRecognizer *)tapGestureRecongnizer
 {
-    NSLog(@"DIJSKTRA");
+    GAVertex *vertex;
+    CGPoint tapLocation;
+    
+    tapLocation = [tapGestureRecongnizer locationInView:self.mapView];
+    vertex = [self vertexForPoint:tapLocation];
+    
+    if (!vertex) {
+        return;
+    }
+    
+    if (self.vertexHolder) {
+        self.vertexHolder.selected = NO;
+        
+        if (self.vertexHolder == vertex) {
+            self.vertexHolder = nil;
+            return;
+        }
+        
+        [self.algorithm routeShortestPathFromOriginVertex:self.vertexHolder toDestinationVertex:vertex];
+        
+        self.vertexHolder = nil;
+        return;
+    }
+    
+    vertex.selected = YES;
+    self.vertexHolder = vertex;
 }
 
-- (void)deleteWasTapped:(UITapGestureRecognizer *)tapGestureRecongnizer
+- (void)deleteVertexWasTapped:(UITapGestureRecognizer *)tapGestureRecongnizer
 {
     GAVertex *vertex;
     
     [self.vertexesArray removeObject:vertex];
+}
+
+- (void)deleteEdgeWasTapped:(UITapGestureRecognizer *)tapGestureRecongnizer
+{
 }
 
 

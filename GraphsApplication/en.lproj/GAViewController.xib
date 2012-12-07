@@ -47,15 +47,17 @@
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<int key="IBSegmentControlStyle">1</int>
-						<int key="IBNumberOfSegments">4</int>
+						<int key="IBNumberOfSegments">5</int>
 						<int key="IBSelectedSegmentIndex">0</int>
 						<array key="IBSegmentTitles">
 							<string>Vértices</string>
 							<string>Aristas</string>
 							<string>Dijkstra</string>
-							<string>Borrar</string>
+							<string>Borrar Vértice</string>
+							<string>Borrar Arista</string>
 						</array>
 						<array class="NSMutableArray" key="IBSegmentWidths">
+							<real value="0.0"/>
 							<real value="0.0"/>
 							<real value="0.0"/>
 							<real value="0.0"/>
@@ -66,8 +68,10 @@
 							<boolean value="YES"/>
 							<boolean value="YES"/>
 							<boolean value="YES"/>
+							<boolean value="YES"/>
 						</array>
 						<array class="NSMutableArray" key="IBSegmentContentOffsets">
+							<string>{0, 0}</string>
 							<string>{0, 0}</string>
 							<string>{0, 0}</string>
 							<string>{0, 0}</string>
@@ -78,9 +82,10 @@
 							<reference ref="4"/>
 							<reference ref="4"/>
 							<reference ref="4"/>
+							<reference ref="4"/>
 						</array>
 					</object>
-					<object class="IBUIView" id="512268761">
+					<object class="IBUIView" id="1054024033">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrameSize">{768, 745}</string>
@@ -91,7 +96,7 @@
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MQA</bytes>
-							<object class="NSColorSpace" key="NSCustomColorSpace" id="31109018">
+							<object class="NSColorSpace" key="NSCustomColorSpace" id="946123289">
 								<int key="NSID">2</int>
 							</object>
 						</object>
@@ -101,11 +106,11 @@
 				<string key="NSFrame">{{0, 20}, {768, 1004}}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
-				<reference key="NSNextKeyView" ref="512268761"/>
+				<reference key="NSNextKeyView" ref="1054024033"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">3</int>
 					<bytes key="NSWhite">MQA</bytes>
-					<reference key="NSCustomColorSpace" ref="31109018"/>
+					<reference key="NSCustomColorSpace" ref="946123289"/>
 				</object>
 				<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics">
 					<int key="IBUIStatusBarStyle">2</int>
@@ -135,7 +140,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">mapView</string>
 						<reference key="source" ref="841351856"/>
-						<reference key="destination" ref="512268761"/>
+						<reference key="destination" ref="1054024033"/>
 					</object>
 					<int key="connectionID">66</int>
 				</object>
@@ -220,11 +225,11 @@
 								<float key="scoringTypeFloat">29</float>
 								<int key="contentType">3</int>
 							</object>
-							<object class="IBNSLayoutConstraint" id="503452025">
+							<object class="IBNSLayoutConstraint" id="677949085">
 								<reference key="firstItem" ref="766721923"/>
 								<int key="firstAttribute">4</int>
 								<int key="relation">0</int>
-								<reference key="secondItem" ref="512268761"/>
+								<reference key="secondItem" ref="1054024033"/>
 								<int key="secondAttribute">4</int>
 								<float key="multiplier">1</float>
 								<object class="IBLayoutConstant" key="constant">
@@ -237,7 +242,7 @@
 								<int key="contentType">3</int>
 							</object>
 							<object class="IBNSLayoutConstraint" id="232037294">
-								<reference key="firstItem" ref="512268761"/>
+								<reference key="firstItem" ref="1054024033"/>
 								<int key="firstAttribute">6</int>
 								<int key="relation">0</int>
 								<reference key="secondItem" ref="766721923"/>
@@ -253,7 +258,7 @@
 								<int key="contentType">3</int>
 							</object>
 							<object class="IBNSLayoutConstraint" id="398683633">
-								<reference key="firstItem" ref="512268761"/>
+								<reference key="firstItem" ref="1054024033"/>
 								<int key="firstAttribute">5</int>
 								<int key="relation">0</int>
 								<reference key="secondItem" ref="766721923"/>
@@ -269,7 +274,7 @@
 								<int key="contentType">3</int>
 							</object>
 							<object class="IBNSLayoutConstraint" id="496995969">
-								<reference key="firstItem" ref="512268761"/>
+								<reference key="firstItem" ref="1054024033"/>
 								<int key="firstAttribute">3</int>
 								<int key="relation">0</int>
 								<reference key="secondItem" ref="766721923"/>
@@ -285,7 +290,7 @@
 								<int key="contentType">3</int>
 							</object>
 							<reference ref="394560193"/>
-							<reference ref="512268761"/>
+							<reference ref="1054024033"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -312,7 +317,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">54</int>
-						<reference key="object" ref="512268761"/>
+						<reference key="object" ref="1054024033"/>
 						<reference key="parent" ref="766721923"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -332,7 +337,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">65</int>
-						<reference key="object" ref="503452025"/>
+						<reference key="object" ref="677949085"/>
 						<reference key="parent" ref="766721923"/>
 					</object>
 				</array>
@@ -347,7 +352,7 @@
 					<reference ref="496995969"/>
 					<reference ref="398683633"/>
 					<reference ref="232037294"/>
-					<reference ref="503452025"/>
+					<reference ref="677949085"/>
 					<reference ref="1041402598"/>
 					<reference ref="508707361"/>
 					<reference ref="891360844"/>
@@ -356,7 +361,7 @@
 				<string key="32.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="4.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<boolean value="NO" key="4.IBViewMetadataTranslatesAutoresizingMaskIntoConstraints"/>
-				<integer value="0" key="4.IUISegmentedControlInspectorSelectedSegmentMetadataKey"/>
+				<integer value="4" key="4.IUISegmentedControlInspectorSelectedSegmentMetadataKey"/>
 				<string key="52.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="54.CustomClassName">GAMapView</string>
 				<string key="54.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
