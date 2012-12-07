@@ -153,6 +153,8 @@
         edge.backgroundColor = [UIColor greenColor];
         edge.originVertex = self.vertexHolder;
         edge.destinationVertex = vertex;
+        [edge.originVertex.neighborsArray addObject:edge.destinationVertex];
+        [edge.destinationVertex.neighborsArray addObject:edge.originVertex];
         [self.mapView.edgesArray addObject:edge];
         [self.mapView setNeedsDisplay];
         
@@ -198,11 +200,16 @@
 {
     GAVertex *vertex;
     
+    vertex = [self vertexForPoint:[tapGestureRecongnizer locationInView:self.mapView]];
+    
+    // if vertex had edge, delete it and also remove from neighbors
+    
     [self.vertexesArray removeObject:vertex];
 }
 
 - (void)deleteEdgeWasTapped:(UITapGestureRecognizer *)tapGestureRecongnizer
 {
+    // Delete after selecting to vertexes.
 }
 
 

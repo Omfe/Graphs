@@ -7,6 +7,8 @@
 //
 
 #import "GAAlgorithm.h"
+#import "GAVertex.h"
+#import "GAEdge.h"
 
 @interface GAAlgorithm()
 

@@ -7,9 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "GAVertex.h"
 
 @class GAAlgorithm;
+@class GAVertex;
+@class GAEdge;
 
 @protocol GAAlgorithmDelegate
 
