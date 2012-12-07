@@ -9,12 +9,16 @@
 #import "GAViewController.h"
 #import "GAVertex.h"
 #import "GAEdge.h"
+#import "GAAlgorithm.h"
+#import "GAMapView.h"
 
 @interface GAViewController ()
 
-@property (weak, nonatomic) IBOutlet UIImageView *mapView;
+@property (weak, nonatomic) IBOutlet GAMapView *mapView;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *modeSegmentedControl;
 
+@property (strong, nonatomic) GAAlgorithm *algorithm;
+@property (strong, nonatomic) NSMutableArray *vertexesArray;
 @property (strong, nonatomic) id objectHolder;
 
 @end
@@ -35,6 +39,10 @@
 #pragma mark - Action Methods
 - (IBAction)modeValueChanged:(UISegmentedControl *)sender
 {
+    [self.mapView.subviews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        // Unselect everything
+    }];
+    
     self.objectHolder = nil;
 }
 
@@ -93,14 +101,44 @@
     }
 
     vertex = [[GAVertex alloc] initWithFrame:frame];
-    vertex.backgroundColor = [UIColor redColor];
+    vertex.backgroundColor = [UIColor greenColor];
     
     [self.mapView addSubview:vertex];
+    [self.vertexesArray addObject:vertex];
 }
 
 - (void)addEdgeWasTapped:(UITapGestureRecognizer *)tapGestureRecongnizer
 {
-    NSLog(@"EDGE");
+    GAVertex *vertex;
+    GAEdge *edge;
+    CGPoint tapLocation;
+    
+    tapLocation = [tapGestureRecongnizer locationInView:self.mapView];
+    vertex = [self vertexForPoint:tapLocation];
+    
+    if (self.objectHolder) {
+        ((GAVertex *)self.objectHolder).selected = NO;
+        
+        if (self.objectHolder == vertex) {
+            self.objectHolder = nil;
+            return;
+        }
+        
+#warning CHECK IF AN EDGE EXISTS THEERE ALREADY!
+        
+        edge = [[GAEdge alloc] initWithFrame:CGRectZero];
+        edge.backgroundColor = [UIColor greenColor];
+        edge.originVertex = ((GAVertex *)self.objectHolder);
+        edge.destinationVertex = vertex;
+        [self.mapView.edgesArray addObject:edge];
+        [self.mapView setNeedsDisplay];
+        
+        self.objectHolder = nil;
+        return;
+    }
+    
+    vertex.selected = YES;
+    self.objectHolder = vertex;
 }
 
 - (void)dijkstraWasTapped:(UITapGestureRecognizer *)tapGestureRecongnizer
@@ -110,7 +148,25 @@
 
 - (void)deleteWasTapped:(UITapGestureRecognizer *)tapGestureRecongnizer
 {
-    NSLog(@"DELETE");
+    GAVertex *vertex;
+    
+    [self.vertexesArray removeObject:vertex];
+}
+
+
+- (GAVertex *)vertexForPoint:(CGPoint)point
+{
+    NSArray *mapSubviews;
+    
+    mapSubviews = self.mapView.subviews;
+    for (UIView *view in mapSubviews) {
+        if (CGRectContainsPoint(view.frame, point)) {
+            if ([view isKindOfClass:[GAVertex class]]) {
+                return (GAVertex *)view;
+            }
+        }
+    }
+    return nil;
 }
 
 @end

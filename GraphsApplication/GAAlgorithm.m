@@ -10,29 +10,13 @@
 
 @interface GAAlgorithm()
 
-@property (assign, nonatomic) NSMutableArray *graphContentsArray;
-
 @end
 
 @implementation GAAlgorithm
 
 
-#pragma mark - public methods
+#pragma mark - Public methods
 
-- (void)addVertex:(GAVertex *)vertex
-{
-    
-}
-
-- (void)deleteVertex:(GAVertex *)vertex
-{
-    
-}
-
-- (void)connectOriginVertex:(GAVertex *)originVertex withDestinationVertex:(GAVertex *)destinationVertex
-{
-    
-}
 
 - (void)routeShortestPathFromOriginVertex:(GAVertex *)originVertex toDestinationVertex:(GAVertex *)destinationVertex
 {

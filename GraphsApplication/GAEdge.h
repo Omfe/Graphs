@@ -8,12 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+@class GAVertex;
+
 @interface GAEdge : UIView
 
 @property (assign, nonatomic) BOOL selected;
-@property (assign, nonatomic, readonly) CGFloat distanceValue;
-@property (assign, nonatomic)  NSInteger edgeID;
-
-
+@property (assign, nonatomic) CGFloat distanceValue;
+@property (strong, nonatomic) GAVertex *originVertex;
+@property (strong, nonatomic) GAVertex *destinationVertex;
 
 @end
