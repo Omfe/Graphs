@@ -19,7 +19,7 @@
 
 @property (strong, nonatomic) GAAlgorithm *algorithm;
 @property (strong, nonatomic) NSMutableArray *vertexesArray;
-@property (strong, nonatomic) id objectHolder;
+@property (strong, nonatomic) GAVertex *vertexHolder;
 
 @end
 
@@ -40,10 +40,11 @@
 - (IBAction)modeValueChanged:(UISegmentedControl *)sender
 {
     [self.mapView.subviews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+#warning IMPLEMENT THIS
         // Unselect everything
     }];
     
-    self.objectHolder = nil;
+    self.vertexHolder = nil;
 }
 
 - (void)mapWasTapped:(UITapGestureRecognizer *)tapGestureRecognizer
@@ -85,9 +86,6 @@
             if ([view isKindOfClass:[GAVertex class]]) {
                 [[[UIAlertView alloc] initWithTitle:@"Overlapping!" message:@"There's a Vertex there already!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil] show];
                 return;
-            } else if ([view isKindOfClass:[GAEdge class]]) {
-                [[[UIAlertView alloc] initWithTitle:@"Overlapping!" message:@"There's an Edge in the way!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil] show];
-                return;
             } else {
                 // Something unknown :S
             }
@@ -116,11 +114,15 @@
     tapLocation = [tapGestureRecongnizer locationInView:self.mapView];
     vertex = [self vertexForPoint:tapLocation];
     
-    if (self.objectHolder) {
-        ((GAVertex *)self.objectHolder).selected = NO;
+    if (!vertex) {
+        return;
+    }
+    
+    if (self.vertexHolder) {
+        self.vertexHolder.selected = NO;
         
-        if (self.objectHolder == vertex) {
-            self.objectHolder = nil;
+        if (self.vertexHolder == vertex) {
+            self.vertexHolder = nil;
             return;
         }
         
@@ -128,17 +130,17 @@
         
         edge = [[GAEdge alloc] initWithFrame:CGRectZero];
         edge.backgroundColor = [UIColor greenColor];
-        edge.originVertex = ((GAVertex *)self.objectHolder);
+        edge.originVertex = self.vertexHolder;
         edge.destinationVertex = vertex;
         [self.mapView.edgesArray addObject:edge];
         [self.mapView setNeedsDisplay];
         
-        self.objectHolder = nil;
+        self.vertexHolder = nil;
         return;
     }
     
     vertex.selected = YES;
-    self.objectHolder = vertex;
+    self.vertexHolder = vertex;
 }
 
 - (void)dijkstraWasTapped:(UITapGestureRecognizer *)tapGestureRecongnizer
