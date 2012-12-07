@@ -235,7 +235,38 @@
 
 - (void)deleteEdgeWasTapped:(UITapGestureRecognizer *)tapGestureRecongnizer
 {
-    // Delete after selecting two vertexes.
+    GAVertex *vertex;
+    GAEdge *edge;
+    CGPoint tapLocation;
+    
+    tapLocation = [tapGestureRecongnizer locationInView:self.mapView];
+    vertex = [self vertexForPoint:tapLocation];
+    
+    if (!vertex) {
+        return;
+    }
+    
+    if (self.vertexHolder) {
+        self.vertexHolder.selected = NO;
+        
+        if (self.vertexHolder == vertex) {
+            self.vertexHolder = nil;
+            return;
+        }
+        
+        // Removing each other from their neighborsArray
+        [self.vertexHolder.neighborsArray removeObject:vertex];
+        [vertex.neighborsArray removeObject:self.vertexHolder];
+        edge = [self edgeBetweenOriginVertex:self.vertexHolder andDestinationVertex:vertex];
+        [self.mapView.edgesArray removeObject:edge];
+        
+        self.vertexHolder = nil;
+        [self.mapView setNeedsDisplay];
+        return;
+    }
+    
+    vertex.selected = YES;
+    self.vertexHolder = vertex;
 }
 
 - (void)deleteVertexHolderFromMap
