@@ -16,5 +16,6 @@
 - (void)addVertex:(GAVertex *)vertex;
 - (void)deleteVertex:(GAVertex *)vertex;
 - (void)connectOriginVertex:(GAVertex *)originVertex withDestinationVertex:(GAVertex *)destinationVertex;
+- (void)routeShortestPathFromOriginVertex:(GAVertex *)originVertex toDestinationVertex:(GAVertex *)destinationVertex;
 
 @end
