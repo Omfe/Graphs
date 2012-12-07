@@ -7,6 +7,8 @@
 //
 
 #import "GAAlgorithm.h"
+#import "GAVertex.h"
+#import "GAEdge.h"
 
 @interface GAAlgorithm()
 
@@ -71,5 +73,13 @@
     }
 }
 
+
+
+- (GAEdge *)edgeBetweenOriginVertex:(GAVertex *)originVertex andDestinationVertex:(GAVertex *)destinationVertex
+{
+    GAEdge *edge;
+    
+    return edge;
+}
 
 @end
