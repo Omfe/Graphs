@@ -29,9 +29,9 @@
     
     [super drawRect:rect];
     
-    [[UIImage imageNamed:@"Map.png"] drawInRect:rect];
-    
     context = UIGraphicsGetCurrentContext();
+    
+    [[UIImage imageNamed:@"Map.png"] drawInRect:rect];
     CGContextSetLineWidth(context, 2);
     
     for (GAEdge *edge in self.edgesArray) {

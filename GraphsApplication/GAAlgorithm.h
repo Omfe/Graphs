@@ -15,6 +15,7 @@
 @protocol GAAlgorithmDelegate
 
 - (void)algorithm:(GAAlgorithm *)algorithm didPassThroughEdge:(GAEdge *)edge andFinished:(BOOL)finished;
+- (GAEdge *)edgeBetweenOriginVertex:(GAVertex *)originVertex andDestinationVertex:(GAVertex *)destinationVertex;
 
 @end
 
@@ -24,6 +25,5 @@
 @property (assign, nonatomic) id<GAAlgorithmDelegate> delegate;
 
 - (void)routeShortestPathFromOriginVertex:(GAVertex *)originVertex toDestinationVertex:(GAVertex *)destinationVertex;
-- (GAEdge *)edgeBetweenOriginVertex:(GAVertex *)originVertex andDestinationVertex:(GAVertex *)destinationVertex;
 
 @end

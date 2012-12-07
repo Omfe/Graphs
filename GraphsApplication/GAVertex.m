@@ -10,6 +10,15 @@
 
 @implementation GAVertex
 
+- (id)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        _neighborsArray = [[NSMutableArray alloc] init];
+    }
+    return self;
+}
+
 - (void)setSelected:(BOOL)selected
 {
     if (_selected != selected) {

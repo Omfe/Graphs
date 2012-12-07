@@ -75,11 +75,4 @@
 
 
 
-- (GAEdge *)edgeBetweenOriginVertex:(GAVertex *)originVertex andDestinationVertex:(GAVertex *)destinationVertex
-{
-    GAEdge *edge;
-    
-    return edge;
-}
-
 @end
