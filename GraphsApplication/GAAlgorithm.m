@@ -60,12 +60,11 @@
     currentVertex = destinationVertex;
     while (currentVertex) {
         for (GAVertex *neightborVertex in currentVertex.neighborsArray) {
+            edge = [self.delegate edgeBetweenOriginVertex:currentVertex andDestinationVertex:neightborVertex];
             if (neightborVertex == originVertex) {
-                edge = [self.delegate edgeBetweenOriginVertex:originVertex andDestinationVertex:neightborVertex];
                 [self.delegate algorithm:self didPassThroughEdge:edge andFinished:YES];
                 return;
             }
-            edge = [self.delegate edgeBetweenOriginVertex:currentVertex andDestinationVertex:neightborVertex];
             distance = edge.distanceValue;
             if (currentVertex.permanentWeight - distance == neightborVertex.permanentWeight) {
                 vertexToGo = neightborVertex;

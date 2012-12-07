@@ -48,7 +48,7 @@
     if (self.originVertex.center.x < self.destinationVertex.center.x) {
         x = self.originVertex.center.x + dx - 30;
     } else {
-        x = self.destinationVertex.center.x + dx - 30;
+        x = self.destinationVertex.center.x - dx - 30;
     }
     
     if (self.originVertex.center.y < self.destinationVertex.center.y) {
