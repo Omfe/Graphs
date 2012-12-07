@@ -16,6 +16,7 @@
     if (self) {
         _neighborsArray = [[NSMutableArray alloc] init];
         _locked = NO;
+        _visitedTimes = 0;
         _tempWeight = 0;
         _permanentWeight = 0;
     }

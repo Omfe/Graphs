@@ -14,6 +14,7 @@
 @property (assign, nonatomic) BOOL locked;
 @property (assign, nonatomic) CGFloat tempWeight;
 @property (assign, nonatomic) CGFloat permanentWeight;
+@property (assign, nonatomic) NSInteger visitedTimes;
 @property (strong, nonatomic) NSMutableArray *neighborsArray;
 
 @end

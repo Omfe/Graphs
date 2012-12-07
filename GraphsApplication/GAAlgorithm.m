@@ -52,7 +52,10 @@
                 nearestVertex = neightborVertex;
             }
             nearestVertex.permanentWeight = nearestVertex.tempWeight;
-            nearestVertex.locked = YES;
+            neightborVertex.visitedTimes++;
+            if (neightborVertex.visitedTimes == neightborVertex.neighborsArray.count) {
+                neightborVertex.locked = YES;
+            }
         }
         currentVertex = nearestVertex;
         nearestVertex = nil;

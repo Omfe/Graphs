@@ -317,6 +317,7 @@
 {
     for (GAVertex *vertex in self.vertexesArray) {
         vertex.locked = NO;
+        vertex.visitedTimes = 0;
         vertex.tempWeight = 0;
         vertex.permanentWeight = 0;
     }
