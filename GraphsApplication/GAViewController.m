@@ -51,9 +51,15 @@
 
 - (GAEdge *)edgeBetweenOriginVertex:(GAVertex *)originVertex andDestinationVertex:(GAVertex *)destinationVertex
 {
-    GAEdge *edge;
-    
-    return edge;
+    for (GAEdge *edge in self.mapView.edgesArray) {
+        if (edge.originVertex == originVertex && edge.destinationVertex == destinationVertex) {
+            return edge;
+        }
+        if (edge.originVertex == destinationVertex && edge.destinationVertex == originVertex) {
+            return edge;
+        }
+    }
+    return nil;
 }
 
 
@@ -170,6 +176,7 @@
         }
         
         if ([self edgeBetweenOriginVertex:self.vertexHolder andDestinationVertex:vertex]) {
+            self.vertexHolder = nil;
             return;
         }
         
