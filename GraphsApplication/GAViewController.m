@@ -12,7 +12,7 @@
 #import "GAAlgorithm.h"
 #import "GAMapView.h"
 
-@interface GAViewController () <GAAlgorithmDelegate>
+@interface GAViewController () <GAAlgorithmDelegate, UIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet GAMapView *mapView;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *modeSegmentedControl;
@@ -46,6 +46,21 @@
     edge.selected = YES;
     if (finished) {
         [self.mapView setNeedsDisplay];
+    }
+}
+
+
+#pragma mark - UIAlerViewDelegate Methods
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    switch (buttonIndex) {
+        case 0: //"No"
+            break;
+        case 1: //"Yes"
+            [self deleteVertexHolderFromMap];
+            break;
+        default:
+            break;
     }
 }
 
@@ -147,7 +162,9 @@
             return;
         }
         
-#warning CHECK IF AN EDGE EXISTS THEERE ALREADY!
+        if ([self.algorithm edgeBetweenOriginVertex:self.vertexHolder andDestinationVertex:vertex]) {
+            return;
+        }
         
         edge = [[GAEdge alloc] initWithFrame:CGRectZero];
         edge.backgroundColor = [UIColor greenColor];
@@ -198,20 +215,36 @@
 
 - (void)deleteVertexWasTapped:(UITapGestureRecognizer *)tapGestureRecongnizer
 {
-    GAVertex *vertex;
-    
-    vertex = [self vertexForPoint:[tapGestureRecongnizer locationInView:self.mapView]];
-    
-    // if vertex had edge, delete it and also remove from neighbors
-    
-    [self.vertexesArray removeObject:vertex];
+    self.vertexHolder = [self vertexForPoint:[tapGestureRecongnizer locationInView:self.mapView]];
+    [[[UIAlertView alloc] initWithTitle:@"Are you sure?" message:@"Are you sure you want to delete this Vertex?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil] show];
 }
 
 - (void)deleteEdgeWasTapped:(UITapGestureRecognizer *)tapGestureRecongnizer
 {
-    // Delete after selecting to vertexes.
+    // Delete after selecting two vertexes.
 }
 
+- (void)deleteVertexHolderFromMap
+{
+    GAVertex *vertex;
+    GAEdge *edge;
+    
+    vertex = self.vertexHolder;
+    
+    if (vertex.neighborsArray.count != 0) {
+        // Removing this vertex from all of its neighbor's "neighborsArray".
+        for (GAVertex *neighborVertex in vertex.neighborsArray) {
+            edge = [self.algorithm edgeBetweenOriginVertex:vertex andDestinationVertex:neighborVertex];
+            [self.mapView.edgesArray removeObject:edge];
+            [neighborVertex.neighborsArray removeObject:vertex];
+        }
+    }
+    
+    [vertex removeFromSuperview];
+    [self.vertexesArray removeObject:vertex];
+    self.vertexHolder = nil;
+    [self.mapView setNeedsDisplay];
+}
 
 - (GAVertex *)vertexForPoint:(CGPoint)point
 {
