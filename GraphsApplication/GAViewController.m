@@ -217,6 +217,12 @@
             return;
         }
         
+        // Clear old route if there is one...
+        for (GAEdge *edge in self.mapView.edgesArray) {
+            edge.selected = NO;
+        }
+        [self.mapView setNeedsDisplay];
+        
         [self.algorithm routeShortestPathFromOriginVertex:self.vertexHolder toDestinationVertex:vertex];
         
         self.vertexHolder = nil;
