@@ -29,6 +29,7 @@
     CGFloat distance;
     
     originVertex.permanentWeight = 0;
+    originVertex.locked = YES;
     currentVertex = originVertex;
     
     while (currentVertex) {

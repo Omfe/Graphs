@@ -223,6 +223,7 @@
         }
         [self.mapView setNeedsDisplay];
         
+        [self resetVertexesValues];
         [self.algorithm routeShortestPathFromOriginVertex:self.vertexHolder toDestinationVertex:vertex];
         
         self.vertexHolder = nil;
@@ -310,6 +311,15 @@
         }
     }
     return nil;
+}
+
+- (void)resetVertexesValues
+{
+    for (GAVertex *vertex in self.vertexesArray) {
+        vertex.locked = NO;
+        vertex.tempWeight = 0;
+        vertex.permanentWeight = 0;
+    }
 }
 
 @end

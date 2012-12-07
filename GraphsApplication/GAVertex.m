@@ -15,6 +15,9 @@
     self = [super initWithFrame:frame];
     if (self) {
         _neighborsArray = [[NSMutableArray alloc] init];
+        _locked = NO;
+        _tempWeight = 0;
+        _permanentWeight = 0;
     }
     return self;
 }
