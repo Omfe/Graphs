@@ -7,6 +7,7 @@
 //
 
 #import "GAEdge.h"
+#import "GAVertex.h"
 
 @implementation GAEdge
 
@@ -21,6 +22,17 @@
             self.backgroundColor = [UIColor greenColor];
         }
     }
+}
+
+- (CGFloat)distanceValue
+{
+    CGFloat dx;
+    CGFloat dy;
+    
+    dx = self.destinationVertex.center.x - self.originVertex.center.x;
+    dy = self.destinationVertex.center.y - self.originVertex.center.y;
+    
+    return sqrt(dx*dx + dy*dy);
 }
 
 @end
