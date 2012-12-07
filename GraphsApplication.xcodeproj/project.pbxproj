@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		42EEE4931671B06B004F2DDB /* GAMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EEE4921671B06B004F2DDB /* GAMapView.m */; };
 		9946C4DA1667F4D000A01156 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9946C4D91667F4D000A01156 /* UIKit.framework */; };
 		9946C4DC1667F4D000A01156 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9946C4DB1667F4D000A01156 /* Foundation.framework */; };
 		9946C4DE1667F4D000A01156 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9946C4DD1667F4D000A01156 /* CoreGraphics.framework */; };
@@ -25,6 +26,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		42EEE4911671B06B004F2DDB /* GAMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAMapView.h; sourceTree = "<group>"; };
+		42EEE4921671B06B004F2DDB /* GAMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GAMapView.m; sourceTree = "<group>"; };
 		9946C4D51667F4D000A01156 /* GraphsApplication.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GraphsApplication.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9946C4D91667F4D000A01156 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		9946C4DB1667F4D000A01156 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -100,6 +103,8 @@
 				9946C4F11667F4D100A01156 /* GAViewController.h */,
 				9946C4F21667F4D100A01156 /* GAViewController.m */,
 				9946C4F41667F4D100A01156 /* GAViewController.xib */,
+				42EEE4911671B06B004F2DDB /* GAMapView.h */,
+				42EEE4921671B06B004F2DDB /* GAMapView.m */,
 				9946C504166BE82800A01156 /* GAVertex.h */,
 				9946C505166BE82800A01156 /* GAVertex.m */,
 				9946C508166BE89300A01156 /* GAEdge.h */,
@@ -207,6 +212,7 @@
 				9946C506166BE82800A01156 /* GAVertex.m in Sources */,
 				9946C50A166BE89300A01156 /* GAEdge.m in Sources */,
 				9946C50D166BE8C600A01156 /* GAAlgorithm.m in Sources */,
+				42EEE4931671B06B004F2DDB /* GAMapView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

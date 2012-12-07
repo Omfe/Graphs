@@ -10,15 +10,6 @@
 
 @implementation GAVertex
 
-- (id)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        //
-    }
-    return self;
-}
-
 - (void)setSelected:(BOOL)selected
 {
     if (_selected != selected) {
@@ -27,7 +18,7 @@
         if (_selected) {
             self.backgroundColor = [UIColor redColor];
         } else {
-            self.backgroundColor = [UIColor whiteColor];
+            self.backgroundColor = [UIColor greenColor];
         }
     }
 }
