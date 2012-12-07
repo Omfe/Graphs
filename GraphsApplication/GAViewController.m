@@ -35,6 +35,8 @@
     [self.mapView addGestureRecognizer:tapGestureRecognizer];
     
     self.vertexesArray = [[NSMutableArray alloc] init];
+    self.algorithm = [[GAAlgorithm alloc] init];
+    self.algorithm.delegate = self;
 }
 
 
