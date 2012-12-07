@@ -25,10 +25,9 @@
     GAVertex *currentVertex;
     GAVertex *nearestVertex;
     GAVertex *vertexToGo;
+    GAEdge *edge;
     CGFloat distance;
     
-    
-    distance = 0;
     originVertex.permanentWeight = 0;
     currentVertex = originVertex;
     
@@ -37,6 +36,8 @@
             if (neightborVertex.locked) {
                 continue;
             }
+            edge = [self.delegate edgeBetweenOriginVertex:currentVertex andDestinationVertex:neightborVertex];
+            distance = edge.distanceValue;
             neightborVertex.tempWeight = currentVertex.permanentWeight + distance;
         }
         for (GAVertex *neightborVertex in currentVertex.neighborsArray) {
@@ -60,16 +61,20 @@
     while (currentVertex) {
         for (GAVertex *neightborVertex in currentVertex.neighborsArray) {
             if (neightborVertex == originVertex) {
-                //Highlight Path to origin vertex
+                edge = [self.delegate edgeBetweenOriginVertex:originVertex andDestinationVertex:neightborVertex];
+                [self.delegate algorithm:self didPassThroughEdge:edge andFinished:YES];
                 return;
             }
+            edge = [self.delegate edgeBetweenOriginVertex:currentVertex andDestinationVertex:neightborVertex];
+            distance = edge.distanceValue;
             if (currentVertex.permanentWeight - distance == neightborVertex.permanentWeight) {
                 vertexToGo = neightborVertex;
             }
         }
+        edge = [self.delegate edgeBetweenOriginVertex:currentVertex andDestinationVertex:vertexToGo];
+        [self.delegate algorithm:self didPassThroughEdge:edge andFinished:NO];
         currentVertex = vertexToGo;
         vertexToGo = nil;
-        //highligh path to current vertex
     }
 }
 
