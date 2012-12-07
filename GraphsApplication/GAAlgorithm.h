@@ -24,5 +24,6 @@
 @property (assign, nonatomic) id<GAAlgorithmDelegate> delegate;
 
 - (void)routeShortestPathFromOriginVertex:(GAVertex *)originVertex toDestinationVertex:(GAVertex *)destinationVertex;
+- (GAEdge *)edgeBetweenOriginVertex:(GAVertex *)originVertex andDestinationVertex:(GAVertex *)destinationVertex;
 
 @end
