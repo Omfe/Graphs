@@ -24,17 +24,30 @@
 {
     BOOL finishedRouting;
     GAVertex *currentVertex;
+    GAVertex *nearestVertex;
+    CGFloat distance;
     
-    
+    distance = 0;
+    finishedRouting = NO;
     originVertex.permanentWeight = 0;
-    for (GAVertex *neightborVertex in currentVertex.neighborsArray) {
-   //     neightborVertex.tempWeight = currentVertex.permanentWeight + distancia;
-    }
-    for (GAVertex *neightborVertex in currentVertex.neighborsArray) {
-        //
-    }
+    currentVertex = originVertex;
     
-    
+    while (!finishedRouting) {
+        for (GAVertex *neightborVertex in currentVertex.neighborsArray) {
+            neightborVertex.tempWeight = currentVertex.permanentWeight + distance;
+        }
+        for (GAVertex *neightborVertex in currentVertex.neighborsArray) {
+            if (!nearestVertex) {
+                nearestVertex = neightborVertex;
+            }
+            if (neightborVertex.tempWeight < nearestVertex.tempWeight) {
+                nearestVertex = neightborVertex;
+            }
+            nearestVertex.permanentWeight = nearestVertex.tempWeight;
+            nearestVertex.locked = YES;
+        }
+        nearestVertex = nil;
+    }
 }
 
 //1. Poner permanentWieght 0 al vértice inicial.
