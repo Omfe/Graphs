@@ -59,11 +59,4 @@
 //4. Hacer paso 2 y 3 otra vez hasta que todos estén locked (se acaba el while(!finishedRouting)).
 
 
-- (GAEdge *)edgeBetweenOriginVertex:(GAVertex *)originVertex andDestinationVertex:(GAVertex *)destinationVertex
-{
-    GAEdge *edge;
-    
-    return edge;
-}
-
 @end

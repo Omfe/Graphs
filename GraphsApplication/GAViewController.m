@@ -49,6 +49,13 @@
     }
 }
 
+- (GAEdge *)edgeBetweenOriginVertex:(GAVertex *)originVertex andDestinationVertex:(GAVertex *)destinationVertex
+{
+    GAEdge *edge;
+    
+    return edge;
+}
+
 
 #pragma mark - UIAlerViewDelegate Methods
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -162,7 +169,7 @@
             return;
         }
         
-        if ([self.algorithm edgeBetweenOriginVertex:self.vertexHolder andDestinationVertex:vertex]) {
+        if ([self edgeBetweenOriginVertex:self.vertexHolder andDestinationVertex:vertex]) {
             return;
         }
         
@@ -234,7 +241,7 @@
     if (vertex.neighborsArray.count != 0) {
         // Removing this vertex from all of its neighbor's "neighborsArray".
         for (GAVertex *neighborVertex in vertex.neighborsArray) {
-            edge = [self.algorithm edgeBetweenOriginVertex:vertex andDestinationVertex:neighborVertex];
+            edge = [self edgeBetweenOriginVertex:vertex andDestinationVertex:neighborVertex];
             [self.mapView.edgesArray removeObject:edge];
             [neighborVertex.neighborsArray removeObject:vertex];
         }
