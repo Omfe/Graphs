@@ -11,10 +11,9 @@
 @interface GAVertex : UIView
 
 @property (assign, nonatomic) BOOL selected;
-@property (strong, nonatomic) NSMutableArray *neighborsArray;
-@property (assign, nonatomic) NSInteger vertexID;
 @property (assign, nonatomic) BOOL locked;
-@property (assign, nonatomic) NSInteger tempWeight;
-@property (assign, nonatomic) NSInteger permanentWeight;
+@property (assign, nonatomic) CGFloat tempWeight;
+@property (assign, nonatomic) CGFloat permanentWeight;
+@property (strong, nonatomic) NSMutableArray *neighborsArray;
 
 @end
