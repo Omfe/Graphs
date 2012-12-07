@@ -40,23 +40,31 @@
             edge = [self.delegate edgeBetweenOriginVertex:currentVertex andDestinationVertex:neightborVertex];
             distance = edge.distanceValue;
             neightborVertex.tempWeight = currentVertex.permanentWeight + distance;
+            
+            if (neightborVertex.tempWeight < neightborVertex.permanentWeight || neightborVertex.permanentWeight == 0) {
+                neightborVertex.permanentWeight = neightborVertex.tempWeight;
+            }
         }
+        
         for (GAVertex *neightborVertex in currentVertex.neighborsArray) {
             if (neightborVertex.locked) {
                 continue;
             }
+            
             if (!nearestVertex) {
                 nearestVertex = neightborVertex;
             }
+            
             if (neightborVertex.tempWeight < nearestVertex.tempWeight) {
                 nearestVertex = neightborVertex;
             }
-            nearestVertex.permanentWeight = nearestVertex.tempWeight;
+            
             neightborVertex.visitedTimes++;
             if (neightborVertex.visitedTimes == neightborVertex.neighborsArray.count) {
                 neightborVertex.locked = YES;
             }
         }
+        
         currentVertex = nearestVertex;
         nearestVertex = nil;
     }
@@ -65,15 +73,18 @@
     while (currentVertex) {
         for (GAVertex *neightborVertex in currentVertex.neighborsArray) {
             edge = [self.delegate edgeBetweenOriginVertex:currentVertex andDestinationVertex:neightborVertex];
+            
             if (neightborVertex == originVertex) {
                 [self.delegate algorithm:self didPassThroughEdge:edge andFinished:YES];
                 return;
             }
+            
             distance = edge.distanceValue;
             if (currentVertex.permanentWeight - distance == neightborVertex.permanentWeight) {
                 vertexToGo = neightborVertex;
             }
         }
+        
         edge = [self.delegate edgeBetweenOriginVertex:currentVertex andDestinationVertex:vertexToGo];
         [self.delegate algorithm:self didPassThroughEdge:edge andFinished:NO];
         currentVertex = vertexToGo;
